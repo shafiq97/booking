@@ -55,6 +55,16 @@
                         <div class="col-lg-6">
                             <form id="contactForm" action="{{ route('booking.store') }}" method="POST">
                                 @csrf
+
+                                <!-- Date input-->
+                                <div class="form-floating mb-3">
+                                    <input class="form-control" id="date" type="date" name="date"
+                                        placeholder="Select a date" required>
+                                    <label for="date">Select Date</label>
+                                    <div class="invalid-feedback" data-sb-feedback="date:required">A date is required.
+                                    </div>
+                                </div>
+
                                 <!-- Name input-->
                                 <div class="form-floating mb-3">
                                     <input class="form-control" id="name" type="text" name="name"
@@ -84,8 +94,8 @@
 
                                 <!-- Address input -->
                                 <div class="form-floating mb-3">
-                                    <textarea name="address" class="form-control" id="address" type="text" placeholder="Enter your address here..."
-                                        style="height: 10rem" data-sb-validations="required"></textarea>
+                                    <textarea name="address" class="form-control" id="address" type="text"
+                                        placeholder="Enter your address here..." style="height: 10rem" data-sb-validations="required"></textarea>
                                     <label for="address">Address</label>
                                     <div class="invalid-feedback" data-sb-feedback="address:required">An address is
                                         required.</div>
@@ -120,6 +130,16 @@
             <div class="small text-center text-muted">Copyright &copy; 2024 - Nur Syazweena Mohd Noor</div>
         </div>
     </footer>
+    <script>
+        $(document).ready(function() {
+            $('#date').datepicker({
+                format: 'yyyy-mm-dd', // Match the format expected by your server
+                autoclose: true,
+                todayHighlight: true
+            });
+        });
+    </script>
+    
 </body>
 
 </html>

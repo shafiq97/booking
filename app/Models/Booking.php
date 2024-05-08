@@ -9,6 +9,13 @@ class Booking extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'email', 'phone', 'address'];
+    protected $fillable = ['name', 'email', 'phone', 'address','date'];
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+
 }
 
