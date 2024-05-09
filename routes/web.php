@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\CleaningController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\PlumbingController;
 use App\Http\Controllers\GardeningController;
 use App\Http\Controllers\ServiceProviderController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\PaymentController;
 // use App\Http\Controllers\CustomAuthController;
 use App\Http\Controllers\AdminController;
 
@@ -34,9 +36,8 @@ Route::get('/', function () {
 // Route::get('/register', function () {
 //     return view('register');
 // });
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
 
 Route::group(['middleware'=>'auth'],function(){    
     Route::get('/cleaning', [CleaningController::class,'index'])->name('cleaning.index');
@@ -60,5 +61,13 @@ Route::get('/admin', [AdminController::class,'index'])->name('admin.index');
 
 Route::get('/workerprofile', [AdminController::class,'create'])->name('admin.worker');
 Route::get('/workerprofile/edit', [AdminController::class,'edit'])->name('admin.edit');
+
+
+
+// Payments Routes
+Route::get('/payments', [PaymentController::class, 'index'])->name('payments.index');
+Route::post('/payments/store', [PaymentController::class, 'store'])->name('payments.store');
+Route::get('/payments/create/{booking_id}', [PaymentController::class, 'create'])->name('payments.create');
+
 
 

@@ -32,7 +32,6 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-
         try {
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
@@ -42,29 +41,27 @@ class BookingController extends Controller
                 'date' => 'required|date' // Validate that it is a proper date
             ]);
 
-            // After setting up validation rules, you might want to check if data passes
             if ($validator->fails()) {
-                // Let's see what errors are thrown if the validation fails
-                dd($validator->errors());
+                // Handle validation failure
+                return redirect()->back()->withErrors($validator)->withInput();
             }
 
-            // If validation passes, you might want to check the data that is validated and to be used
-
-            // Assuming validation passed, let's see the data to be stored
+            // Create booking if validation passes
             $bookingData = $validator->validated();
-
-            // Proceed with storing the booking if validation passes
             $booking = Booking::create($bookingData);
 
-            return back()->with('success', 'Booking submitted successfully!');
+            // Redirect to the payment page, passing along the booking ID
+            // Redirect to the payment create page after a booking is created
+            return redirect()->route('payments.create', ['booking_id' => $booking->id]);
         } catch (ValidationException $e) {
-            // If there's a validation exception, let's dump it to understand the issue
-            dd($e);
+            // Handle the validation exception
+            return back()->with('error', 'Validation Error: ' . $e->getMessage());
         } catch (\Exception $e) {
-            // If a general exception occurs, dump it to see the details
-            dd($e);
+            // Handle general exceptions
+            return back()->with('error', 'Error: ' . $e->getMessage());
         }
     }
+
 
 
 

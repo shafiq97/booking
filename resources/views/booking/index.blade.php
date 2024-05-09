@@ -51,6 +51,16 @@
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="container px-4 px-lg-5">
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
                     <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
                         <div class="col-lg-6">
                             <form id="contactForm" action="{{ route('booking.store') }}" method="POST">
@@ -139,7 +149,7 @@
             });
         });
     </script>
-    
+
 </body>
 
 </html>
